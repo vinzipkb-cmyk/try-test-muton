@@ -30,6 +30,7 @@
 
 - CardContainer: 카드 기본 컨테이너. variant, padding, elevation (`components/card/CardContainer.jsx`)
 - CustomCard: 미디어+콘텐츠 카드. vertical/horizontal/overlay 레이아웃 (`components/card/CustomCard.jsx`)
+- ProjectCard: MUTON 아카이브용 프로젝트 카드. 이미지+상세정보 좌우 분할 레이아웃. imagePosition, ratio, metadata 지원 (`components/card/ProjectCard.jsx`)
 
 ### Input
 

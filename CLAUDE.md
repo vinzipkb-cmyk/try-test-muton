@@ -1,100 +1,214 @@
-# Project Rules
+# MUTON Project Rules
 
 ## META INSTRUCTION
 
-IMPORTANT: 이 문서와 참조된 모든 규칙은 프로젝트 법률이다.
-YOU MUST 코드 작업 전 관련 규칙을 확인하고, 위반 가능성이 있으면 먼저 사용자에게 알려라.
-YOU MUST NOT 명시적 허용 없이 규칙을 위반하는 코드를 작성하지 마라.
+이 문서와 참조된 규칙은 프로젝트 법률이다.
+코드 작업 전 관련 규칙을 확인하고, 위반 가능성이 있으면 먼저 사용자에게 알려라.
 
-## 규칙 원본
+---
 
-### CRITICAL (절대 위반 불가)
-@.claude/rules/project-summary.md
-@.claude/rules/mui-grid-usage.md
+## 1. 제품 정의
 
-### MUST (반드시 준수)
-@.claude/rules/code-convention.md
-@.claude/rules/design-system.md
-@.claude/rules/project-directory.md
+**MUTON** = MUTE + TONE
 
-### SHOULD (관련 작업 시 준수)
-@.claude/rules/storybook-writing.md
-@.claude/rules/easy-refactoring.md
-@.claude/rules/mui-theme.md
+하이엔드 주방가구 브랜드의 건축적 정체성을 전달하는 아카이브 중심 브랜드 사이트
 
-### 참조 문서 (Reference)
-@.claude/rules/components.md - 기존 컴포넌트 목록 (새 컴포넌트 생성 전 필수 확인)
+### 핵심 가치
 
-## Key Directories
+| 구분 | 내용 |
+|------|------|
+| 포지셔닝 | "가구 쇼핑몰"이 아닌 "건축적 작품 아카이브" |
+| 신뢰 구축 | 디테일, 소재, 공정으로 증거 기반 설득 |
+| 전환 전략 | CTA 남발 아닌 서사적 확신 축적 |
 
-- `src/components/` – 재사용 UI 컴포넌트 (card, carousel, grid 등)
-- `src/stories/` – Storybook 스토리 파일 (overview, style, component, template, page)
-- `src/common/ui/` – 공통 UI 요소 (ArrowButton, Indicator)
-- `src/styles/` – 테마, 전역 스타일
-- `src/templates/` – 컴포넌트 조합 템플릿
-- `.storybook/` – Storybook 설정
+### 톤 키워드
 
-## Common Commands
-
-```bash
-pnpm dev              # Vite 개발 서버
-pnpm storybook        # Storybook 실행 (포트 6006)
-pnpm build            # 프로덕션 빌드
-pnpm build-storybook  # Storybook 정적 빌드
-pnpm lint             # ESLint 검사
+```
+Mute / Tone / Shadow / Precision / Sentence / Temperature
 ```
 
-## Workflow
+---
 
-### 모든 코드 변경 전 (MANDATORY)
-1. 작업 대상 파일/폴더 확인
-2. 관련 규칙 확인
-3. 규칙 위반 가능성 체크
-4. 충돌 시 → 사용자에게 먼저 알림
+## 2. 타깃 사용자
 
-### 컴포넌트 생성
-1. **기존 컴포넌트 확인 (MUST)**:
-   - `@.claude/rules/components.md` 참조하여 유사 컴포넌트 존재 여부 확인
-   - 재활용 가능한 컴포넌트가 있으면 확장/조합하여 사용
-   - 새로 만들어야 할 경우에만 신규 생성 진행
-2. project-directory.md에 따라 위치 결정
-3. **디자인 시스템 재활용 (MUST)**:
-   - 아이콘: lucide-react 아이콘 사용 (`src/components/style/Icons.stories.jsx` 패턴 참고)
-   - 타이포그래피: MUI Typography 컴포넌트 사용
-   - 기본 컴포넌트: 기존 `src/components/` 내 컴포넌트 우선 활용
-   - 커스텀 SVG/아이콘 생성 금지 (lucide-react에 없는 경우만 예외)
-4. 구현 (MUI 기반, sx prop 사용)
-5. **Storybook 스토리 작성 (MUST)**:
-   - 컴포넌트와 같은 폴더에 `ComponentName.stories.jsx` 생성
-   - `tags: ['autodocs']` 포함
-   - argTypes로 모든 props 문서화
-   - Default 스토리 필수, 필요시 Variants 스토리 추가
-6. **components.md 업데이트 (MUST)**:
-   - `@.claude/rules/components.md`에 새 컴포넌트 정보 추가
-   - 형식: `- ComponentName: 설명 (\`경로\`)`
-7. 린트 확인 (`pnpm lint`)
+| ID | 세그먼트 | 핵심 니즈 |
+|----|----------|----------|
+| U1 | 오너 (감각형) | "이 브랜드가 뭐가 다른가?" |
+| U2 | 디벨로퍼 (사업형) | "품질, 납기, 리스크는?" |
+| U3 | 실무자 (스펙형) | "스펙 확인, 샘플 요청" |
 
-### 컴포넌트 수정
-1. 현재 동작 파악
-2. 영향 범위 확인
-3. 수정 (기존 동작 유지)
-4. 스토리 업데이트 (props 변경 시 argTypes 동기화)
-5. `components.md` 설명 업데이트 (기능 변경 시)
+---
 
-### 컴포넌트 삭제
-1. 의존성 확인 (해당 컴포넌트를 사용하는 곳)
-2. 컴포넌트 파일 삭제
-3. 스토리 파일 삭제
-4. `@.claude/rules/components.md`에서 해당 항목 제거
+## 3. 정보 구조
 
-### 리팩토링
-1. 외부 동작 변경 없음 확인
-2. easy-refactoring.md 참조
-3. 기존 스토리 통과 확인
+```
+MUTON
+├── Landing        → Hero + Project Preview + Lab Preview
+├── About          → Philosophy + Process + Partners
+├── Archive        → Project Grid → Project Detail
+├── Lab            → Topic Grid → Topic Detail
+├── Contact        → Inquiry Form
+└── Footer
+```
 
-## 규칙 충돌 처리
+---
 
-사용자 요청이 규칙과 충돌할 경우:
-1. "이 요청은 [규칙명]과 충돌합니다" 알림
-2. 구체적 충돌 내용 설명
-3. 사용자가 명시적으로 예외 허용할 때까지 진행 금지
+## 4. 규칙 문서
+
+### CRITICAL (절대 위반 불가)
+
+| 문서 | 내용 |
+|------|------|
+| @.claude/rules/pdr.md | 제품 요구사항, 페이지별 명세 |
+| @.claude/rules/brand-direction.md | 브랜드 철학, 카피 가이드 |
+| @.claude/rules/visual-direction.md | 비주얼/모션 정책, 디자인 토큰 |
+| @.claude/rules/mui-grid-usage.md | MUI Grid import 규칙 |
+
+### MUST (반드시 준수)
+
+| 문서 | 내용 |
+|------|------|
+| @.claude/rules/ux-flow.md | 사용자 시나리오, UX 요소 명세 |
+| @.claude/rules/data-models.md | 데이터 모델, props 매핑 |
+| @.claude/rules/code-convention.md | 코드 컨벤션 |
+| @.claude/rules/design-system.md | 디자인 시스템 |
+| @.claude/rules/project-directory.md | 디렉토리 구조 |
+
+### SHOULD (관련 작업 시)
+
+| 문서 | 내용 |
+|------|------|
+| @.claude/rules/storybook-writing.md | Storybook 작성법 |
+| @.claude/rules/components.md | 기존 컴포넌트 목록 |
+
+---
+
+## 5. 핵심 제약 (Quick Check)
+
+### 브랜드
+
+- [ ] 자기선언형 수식어 금지 (최고급, 프리미엄, 명품)
+- [ ] 건축적 명사 사용 (재료, 빛, 결, 정밀, 온도)
+
+### 비주얼
+
+- [ ] border-radius: 0
+- [ ] 1px gap 그리드 (Archive)
+- [ ] 모노톤 기반 (오프화이트/차콜)
+
+### 모션
+
+- [ ] 느린 감각 모션만 (0.2-0.3s, ease-out)
+- [ ] 글로우/바운스/과도한 패럴랙스 금지
+
+---
+
+## 6. 데이터 모델 (요약)
+
+### Project
+
+```
+id, title, titleEn, year, location, type, scale,
+description, thumbnail, heroImage, gallery[],
+materials[], keywords[], relatedProjects[]
+```
+
+### LabTopic
+
+```
+id, title, titleEn, category, thumbnail, heroImage,
+content[], relatedProjects[]
+```
+
+### Image
+
+```
+src, alt, altEn?, width?, height?, caption?
+```
+
+상세: @.claude/rules/data-models.md
+
+---
+
+## 7. 페이지별 필수 요소 (요약)
+
+| 페이지 | P0 (필수) | P1 (중요) |
+|--------|-----------|-----------|
+| Landing | Hero, ProjectPreview | LabPreview, ScrollIndicator |
+| About | Philosophy, Process | Partners |
+| Archive List | Grid (1px gap), HoverInfo | Filter |
+| Archive Detail | Hero, Meta, Gallery | Materials, Related |
+| Lab List | Grid, CategoryFilter | - |
+| Lab Detail | Hero, Content | RelatedProjects |
+| Contact | InquiryForm, ContactInfo | InquiryType |
+
+상세: @.claude/rules/pdr.md
+
+---
+
+## 8. UX 요소 (요약)
+
+### 시나리오별 핵심 요소
+
+| 시나리오 | 핵심 UX 요소 |
+|----------|-------------|
+| S1. 오너 탐색 | HeroVideo, ProjectGrid, ProjectGallery |
+| S2. 디벨로퍼 검증 | FilterBar, ProcessTimeline, InquiryTypeSelect |
+| S3. 실무자 스펙 | CategoryFilter, ContentBlocks, MaterialSpec |
+
+### 공통 요소
+
+- GNB (desktop: inline, mobile: drawer)
+- LocaleSwitch (ko/en)
+- ThemeToggle (light/dark = 조도 변화)
+- Footer
+
+상세: @.claude/rules/ux-flow.md
+
+---
+
+## 9. 컴포넌트-페이지 매핑
+
+| 페이지 | 권장 컴포넌트 |
+|--------|--------------|
+| Landing | `HeroStack`, `LineGrid`, `AspectMedia` |
+| About | `SplitScreen`, `FullPageContainer` |
+| Archive | `LineGrid` (gap: 1px), `CustomCard` |
+| Lab | `CategoryTab`, `LineGrid`, `CustomCard` |
+| Contact | `UnderlineInput`, `UnderlineSelect` |
+
+기존 컴포넌트: @.claude/rules/components.md
+
+---
+
+## 10. 작업 흐름
+
+### 컴포넌트 생성 전
+
+1. `components.md`에서 유사 컴포넌트 확인
+2. `pdr.md`에서 해당 페이지 요구사항 확인
+3. `ux-flow.md`에서 UX 요소 상태/인터랙션 확인
+4. `data-models.md`에서 props 구조 확인
+
+### 코드 작성 시
+
+1. 브랜드 제약 체크 (섹션 5)
+2. MUI 기반, sx prop 사용
+3. Storybook 스토리 작성
+
+### 규칙 충돌 시
+
+```
+"이 요청은 [규칙명]과 충돌합니다" 알림 → 사용자 허용 전까지 진행 금지
+```
+
+---
+
+## 11. 공통 명령어
+
+```bash
+pnpm dev              # 개발 서버
+pnpm storybook        # Storybook (포트 6006)
+pnpm build            # 빌드
+pnpm lint             # 린트
+```
